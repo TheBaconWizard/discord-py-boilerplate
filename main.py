@@ -1,15 +1,17 @@
+import os
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
 
+load_dotenv()
 
-client = commands.Bot(command_prefix="!")
+PREFIX = os.getenv('PREFIX')
+TOKEN = os.getenv('TOKEN')
+
+client = commands.Bot(command_prefix=PREFIX)
 
 @client.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print(f'Connected to Discord as {client.user}')
 
-@client.command()
-async def foo(ctx):
-    await ctx.send('bar')
-
-client.run('TOKENHERE')
+client.run(TOKEN)
